@@ -1,0 +1,10 @@
+# Allow all robots to index everything
+User-agent: *
+Disallow:
+
+# Optional: Prevent indexing of specific folders or files
+# Disallow: /secret-page.html
+
+# Sitemap (if available)
+Sitemap: https://www.patientsfly.com/sitemap.xml
+  

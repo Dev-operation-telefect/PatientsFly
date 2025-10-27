@@ -43,18 +43,17 @@ const Home = () => {
       >  
         {/* Hero Section */}
         <HeroSection value={homeHeroText}/>
+        {/* problem */}
         <AboutPatientFly/>
         <OurServicesSection/>
         <HowItWorks/>
+        {/* problem */}
         <WhyChooseUs/>
         <PartnerHospitals/>
         <ClientTestimonials/>
         <ContactForm/>
         <ContactSection/>
         <FooterOffices/>
-
-
-
       </div>
     </Layout>
   );

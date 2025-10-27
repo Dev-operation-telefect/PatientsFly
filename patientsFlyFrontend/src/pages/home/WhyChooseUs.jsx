@@ -57,7 +57,7 @@ const WhyChooseUs = () => {
             "contactPoint": [
               {
                 "@type": "ContactPoint",
-                "telephone": "+880123456789",
+                "telephone": "+8801929559911",
                 "contactType": "customer service",
                 "availableLanguage": ["English", "Bangla"]
               }
@@ -74,7 +74,6 @@ const WhyChooseUs = () => {
           className="text-3xl md:text-3xl font-extrabold text-red-600 flex items-center justify-center gap-2"
           data-aos="fade-down"
         >
-          {/* <span>💓</span>  */}
           {t("whyChooseUs")} <HeartPulse className="animate-pulse text-red-600" />
         </h2>
         <p
@@ -118,7 +117,7 @@ const WhyChooseUs = () => {
 
         {/* Partnerships */}
         <div
-          data-aos="fade-left"
+          // data-aos="fade-left"
           className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl p-6 transition-all duration-300"
         >
           <div className="flex items-start gap-3">

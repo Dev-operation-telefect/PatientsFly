@@ -113,7 +113,7 @@ const OurServicesSection = () => {
               key={idx}
               data-aos="zoom-in"
               data-aos-delay={idx * 120}
-              className="group bg-white dark:bg-[#1e1e1e] rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 hover:-translate-y-2 relative overflow-hidden"
+              className="group bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 hover:-translate-y-2 relative overflow-hidden"
             >
               <div className="flex items-center justify-center mb-5 relative z-10">
                 <span className="p-4 rounded-full bg-emerald-50 dark:text-red-600 bg-slate-700 shadow-md">

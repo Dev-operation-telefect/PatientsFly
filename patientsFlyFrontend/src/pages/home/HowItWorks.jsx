@@ -1,3 +1,4 @@
+// HowItWorks.jsx
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -17,6 +18,7 @@ export default function HowItWorks() {
   const { t } = useLanguage("en");
   const { theme } = useTheme();
 
+  // Initialize AOS once
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -24,9 +26,11 @@ export default function HowItWorks() {
       offset: 100,
       easing: "ease-in-out-sine",
     });
+    // refresh AOS after mount in case layout changes (safe)
+    AOS.refresh();
   }, []);
 
-  // ✅ Structured Data for SEO
+  // Structured data (SEO) — safe to append on client
   useEffect(() => {
     const script = document.createElement("script");
     script.type = "application/ld+json";
@@ -51,13 +55,15 @@ export default function HowItWorks() {
       ],
     });
     document.head.appendChild(script);
-    return () => document.head.removeChild(script);
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
   }, []);
 
   const steps = [
     {
       id: 1,
-      icon: <PhoneCall size={36} />,
+      icon: <PhoneCall size={28} aria-hidden="true" />,
       title: t("step1_title"),
       subtitle: t("step1_subtitle"),
       details: t("step1_details"),
@@ -65,7 +71,7 @@ export default function HowItWorks() {
     },
     {
       id: 2,
-      icon: <FileText size={36} />,
+      icon: <FileText size={28} aria-hidden="true" />,
       title: t("step2_title"),
       subtitle: t("step2_subtitle"),
       details: t("step2_details"),
@@ -73,7 +79,7 @@ export default function HowItWorks() {
     },
     {
       id: 3,
-      icon: <ClipboardCheck size={36} />,
+      icon: <ClipboardCheck size={28} aria-hidden="true" />,
       title: t("step3_title"),
       subtitle: t("step3_subtitle"),
       details: t("step3_details"),
@@ -81,7 +87,7 @@ export default function HowItWorks() {
     },
     {
       id: 4,
-      icon: <Plane size={36} />,
+      icon: <Plane size={28} aria-hidden="true" />,
       title: t("step4_title"),
       subtitle: t("step4_subtitle"),
       details: t("step4_details"),
@@ -89,7 +95,7 @@ export default function HowItWorks() {
     },
     {
       id: 5,
-      icon: <Hospital size={36} />,
+      icon: <Hospital size={28} aria-hidden="true" />,
       title: t("step5_title"),
       subtitle: t("step5_subtitle"),
       details: t("step5_details"),
@@ -97,7 +103,7 @@ export default function HowItWorks() {
     },
     {
       id: 6,
-      icon: <Handshake size={36} />,
+      icon: <Handshake size={28} aria-hidden="true" />,
       title: t("step6_title"),
       subtitle: t("step6_subtitle"),
       details: t("step6_details"),
@@ -106,69 +112,82 @@ export default function HowItWorks() {
   ];
 
   return (
-    <div className={theme === "dark" ? "dark" : ""}>
-      <section
-        id="how-it-works"
-        className={`relative overflow-hidden transition-colors duration-300 ${
-          theme === "dark" ? "bg-slate-900 text-white" : " text-gray-800"
-        }`}
-      >
-        {/* ===== Decorative Background ===== */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 -left-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse"></div>
-        </div>
+    <section
+      id="how-it-works"
+      className={`relative overflow-hidden transition-colors duration-300 dark:bg-black dark:text-white`}
+      aria-labelledby="how-it-works-heading"
+    >
+      {/* subtle decorative shapes (non-interactive) */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-20 -left-10 w-72 h-72 rounded-full bg-sky-600/8 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-red-600/8 blur-3xl"></div>
+      </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-20">
-          {/* ===== Header ===== */}
-          <header
-            className="text-center mb-16"
-            data-aos="fade-up"
-            data-aos-duration="1000"
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        {/* Header */}
+        <header className="text-center mb-12" data-aos="fade-up">
+          <h2
+            id="how-it-works-heading"
+            className="text-3xl md:text-4xl font-extrabold flex flex-wrap items-center justify-center gap-3 text-red-600 dark:text-red-600"
           >
-            <h2 className="text-3xl sm:text-3xl font-extrabold flex items-center justify-center gap-3 text-red-600 dark:text-red-600">
-              <span>{t("howItWorks_title")}</span>
-              <HeartPulse className="animate-pulse" />
-            </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
-              {t("howItWorks_subtitle")}
-            </p>
-          </header>
+            <span>{t("howItWorks_title")}</span>
+            <HeartPulse className="animate-pulse" aria-hidden="true" />
+          </h2>
+          <p className="mt-4 max-w-3xl mx-auto text-gray-600 dark:text-gray-300 leading-relaxed">
+            {t("howItWorks_subtitle")}
+          </p>
+        </header>
 
-          {/* ===== Process Steps Grid ===== */}
+        {/* Steps grid */}
+        <div className="relative" data-aos="fade-up">
+          {/* Large-screen connectors: a horizontal line behind cards */}
           <div
-            className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-            data-aos="fade-up"
-          >
-            {/* Connector Line for Large Screens */}
+            aria-hidden="true"
+            className="hidden lg:block absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-gradient-to-r from-sky-200 to-red-200/40"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {steps.map((step, idx) => (
               <article
                 key={step.id}
                 data-aos="zoom-in-up"
-                data-aos-delay={idx * 150}
-                className={`relative z-10 rounded-3xl p-8 text-center shadow-xl backdrop-blur-md transform transition duration-300 bg-white hover:-translate-y-2 hover:shadow-2xl dark:bg-[#1e1e1e] border border-red-500`}
+                data-aos-delay={idx * 100}
+                className={`relative rounded-2xl p-6 text-center shadow-md transition-transform duration-300 transform hover:-translate-y-2 dark:bg-gray-800`}
+                aria-labelledby={`step-${step.id}-title`}
               >
-                {/* Step Badge */}
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                  <div className="h-10 w-10 rounded-full bg-red-600/70 text-white font-semibold flex items-center justify-center shadow-lg dark:bg-main-color/70">
-                    {step.id}
-                  </div>
+                {/* Connector dot on large screens */}
+                <span
+                  aria-hidden="true"
+                  className="hidden lg:inline-block absolute left-1/2 -translate-x-1/2 -top-3 w-3.5 h-3.5 rounded-full bg-red-600 shadow"
+                />
+
+                {/* Step badge (mobile & desktop) */}
+                <div className="mx-auto w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-semibold -mt-8 shadow">
+                  {step.id}
                 </div>
 
                 {/* Icon */}
-                <div className="mt-6 mb-4 flex justify-center">
-                  <div className="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-sky-500/20 to-red-500/20 text-sky-700 dark:text-red-600 border border-sky-200/30 dark:border-slate-600">
+                <div className="mt-4 mb-3 flex justify-center">
+                  <div
+                    className={`h-12 w-12 rounded-full flex items-center justify-center border ${
+                      theme === "dark" ? "border-slate-700" : "border-sky-100"
+                    }`}
+                    aria-hidden="true"
+                  >
                     {step.icon}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-red-600 dark:text-red-600 mb-2">
+                <h3
+                  id={`step-${step.id}-title`}
+                  className="text-lg font-semibold text-red-600 dark:text-red-600 mb-1"
+                >
                   {step.title}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="text-sm italic text-gray-500 dark:text-gray-400 mb-3">
+                <p className="text-sm italic text-gray-600 dark:text-gray-400 mb-3">
                   {step.subtitle}
                 </p>
 
@@ -178,19 +197,21 @@ export default function HowItWorks() {
                 </p>
 
                 {/* Extra */}
-                <p className="text-sm italic text-gray-500 dark:text-gray-400 mb-6">
-                  {step.extra}
-                </p>
+                {step.extra ? (
+                  <p className="text-xs italic text-gray-600 dark:text-gray-400">
+                    {step.extra}
+                  </p>
+                ) : null}
               </article>
             ))}
           </div>
-
-          {/* Decorative Bottom Line */}
-          <div className="mt-16 flex justify-center" data-aos="fade-up">
-            <div className="h-1 w-40 bg-gradient-to-r from-sky-500 to-red-600 rounded-full animate-pulse"></div>
-          </div>
         </div>
-      </section>
-    </div>
+
+        {/* Bottom decorative line */}
+        <div className="mt-12 flex justify-center" data-aos="fade-up">
+          <div className="h-1 w-40 bg-gradient-to-r from-sky-300 to-red-400 rounded-full" />
+        </div>
+      </div>
+    </section>
   );
 }

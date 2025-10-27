@@ -33,7 +33,7 @@ const AboutPatientFly = () => {
         {/* ===== Text Section ===== */}
         <div
           className="flex-1"
-          data-aos="fade-left"
+          // data-aos="fade-left"
           data-aos-delay="200"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-red-600 dark:text-red-600 mb-2">

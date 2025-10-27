@@ -188,7 +188,7 @@ export default function Navbar() {
                     }}
                     className={`py-2 px-3 rounded-md transition ${
                       activeLink === l.link
-                        ? "bg-emerald-700 text-white"
+                        ? "bg-emerald-700 text-main-color"
                         : "text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800"
                     }`}
                   >
